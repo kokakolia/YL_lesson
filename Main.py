@@ -17,8 +17,7 @@ map_params = {
     "l": "map",
 }
 map_api_server = "http://static-maps.yandex.ru/1.x/"
-response = requests.get(map_api_server, params=map_params)
 app = QApplication(sys.argv)
-map = Example(response)
+map = Example(map_api_server, map_params)
 map.show()
 sys.exit(app.exec())
