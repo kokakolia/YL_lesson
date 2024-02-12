@@ -22,7 +22,6 @@ class Example(QWidget):
         return ImageQt.ImageQt(
             Image.open(BytesIO(requests.get(self.map_api_server, params=self.map_params).content)))
 
-
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
         self.setWindowTitle('Отображение карты')
@@ -42,6 +41,27 @@ class Example(QWidget):
             dx = float(self.map_params["spn"].split(",")[0]) - self.scroll_value
             if dx < 0: dx += self.scroll_value
             self.map_params["spn"] = f"{dx},{dx}"
+            self.getImage()
+            self.image.setPixmap(QPixmap.fromImage(self.getImage()))
+
+        if event.key() == 16777234:  # left
+            a, b = map(float, self.map_params['ll'].split(','))
+            self.map_params['ll'] = f"{a - 0.05},{b}"
+            self.getImage()
+            self.image.setPixmap(QPixmap.fromImage(self.getImage()))
+        elif event.key() == 16777236:  # right
+            a, b = map(float, self.map_params['ll'].split(','))
+            self.map_params['ll'] = f"{a + 0.05},{b}"
+            self.getImage()
+            self.image.setPixmap(QPixmap.fromImage(self.getImage()))
+        elif event.key() == 16777235:  # up
+            a, b = map(float, self.map_params['ll'].split(','))
+            self.map_params['ll'] = f"{a},{b + 0.05}"
+            self.getImage()
+            self.image.setPixmap(QPixmap.fromImage(self.getImage()))
+        elif event.key() == 16777237:  # down
+            a, b = map(float, self.map_params['ll'].split(','))
+            self.map_params['ll'] = f"{a},{b - 0.05}"
             self.getImage()
             self.image.setPixmap(QPixmap.fromImage(self.getImage()))
 
