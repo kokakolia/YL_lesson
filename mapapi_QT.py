@@ -5,7 +5,9 @@ import requests
 from PIL import Image, ImageQt
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QAction
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QToolBar, QMainWindow, QMenu
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QToolBar, QMainWindow, QMenu, QTextEdit, QLineEdit
+
+import geocoder
 
 SCREEN_SIZE = [600, 450]
 
@@ -48,6 +50,15 @@ class Example(QMainWindow):
         self.hybridAction.triggered.connect(self.hybridShow)
         mapMenu.addAction(self.hybridAction)
 
+        self.text = QLineEdit()
+        editToolBar = QToolBar("Edit", self)
+        editToolBar.move(70, 0)
+        editToolBar.resize(150, 20)
+        editToolBar.addWidget(self.text)
+
+    def newRequarest():
+        pass
+
     def schemeShow(self):
         if self.hybridAction.isChecked():
             self.hybridAction.setChecked(False)
@@ -88,6 +99,18 @@ class Example(QMainWindow):
         elif event.key() == 16777237:  # down
             a, b = map(float, self.map_params['ll'].split(','))
             self.map_params['ll'] = f"{a},{b - 0.0005 - float(self.map_params['spn'].split(',')[0])}"
+            self.updateMap()
+        elif event.key() == 16777220:
+            toponym_to_find = self.text.text()
+            self.text.setText('')
+            ll, spn = geocoder.get_ll_span(toponym_to_find)
+            map_params = {
+                "ll": ll,
+                "spn": spn,
+                "l": "map",
+                "pt": f'{ll}'
+            }
+            self.map_params = map_params
             self.updateMap()
 
     def updateMap(self):
