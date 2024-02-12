@@ -46,22 +46,22 @@ class Example(QWidget):
 
         if event.key() == 16777234:  # left
             a, b = map(float, self.map_params['ll'].split(','))
-            self.map_params['ll'] = f"{a - 0.05},{b}"
+            self.map_params['ll'] = f"{a - 0.0005},{b}"
             self.getImage()
             self.image.setPixmap(QPixmap.fromImage(self.getImage()))
         elif event.key() == 16777236:  # right
             a, b = map(float, self.map_params['ll'].split(','))
-            self.map_params['ll'] = f"{a + 0.05},{b}"
+            self.map_params['ll'] = f"{a + 0.0005},{b}"
             self.getImage()
             self.image.setPixmap(QPixmap.fromImage(self.getImage()))
         elif event.key() == 16777235:  # up
             a, b = map(float, self.map_params['ll'].split(','))
-            self.map_params['ll'] = f"{a},{b + 0.05}"
+            self.map_params['ll'] = f"{a},{b + 0.0005}"
             self.getImage()
             self.image.setPixmap(QPixmap.fromImage(self.getImage()))
         elif event.key() == 16777237:  # down
             a, b = map(float, self.map_params['ll'].split(','))
-            self.map_params['ll'] = f"{a},{b - 0.05}"
+            self.map_params['ll'] = f"{a},{b - 0.0005}"
             self.getImage()
             self.image.setPixmap(QPixmap.fromImage(self.getImage()))
 

@@ -15,6 +15,7 @@ map_params = {
     "ll": ll,
     "spn": spn,
     "l": "map",
+    "pt": f'{ll}'
 }
 map_api_server = "http://static-maps.yandex.ru/1.x/"
 app = QApplication(sys.argv)
